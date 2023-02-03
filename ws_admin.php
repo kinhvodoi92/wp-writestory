@@ -22,7 +22,7 @@ function register_script()
     wp_enqueue_script('admin_scripts');
 }
 
-add_filter('plugin_action_links_writestory/index.php', 'settings_link');
+add_filter('plugin_action_links_writestory-plugin/index.php', 'settings_link');
 function settings_link($links)
 {
     $url = esc_url(add_query_arg(
