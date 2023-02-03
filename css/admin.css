@@ -1,0 +1,10 @@
+.vsb_admin_input {
+    width: 500px;
+    height: 44px;
+}
+
+.question-item {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0 12px 0px;
+}

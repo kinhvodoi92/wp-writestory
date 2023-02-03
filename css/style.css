@@ -1,0 +1,80 @@
+/* ----------------------------------OVERRIDE---------------------------------- */
+/* Nút Mua ngay full chiều ngang */
+.wpcbn-btn-archive.add_to_cart_button {
+    width:100% !important;
+}
+
+.product-small .add-to-cart-button .button.is-outline {
+	width:100% !important;
+	border-radius: 22px !important;
+	background-color: var(--primary-color) !important;
+	color: white !important;
+	border: none !important;
+	text-align: center;
+	font-size: 1em;
+	padding: 2px 0;
+}
+
+/* Bỏ fix chiều cao Price + BuyNow */
+.product-small .price-wrapper {
+	height: auto !important;
+}
+
+/* Giá chung */
+.price {
+    font-size: 1.2em;
+}
+
+/* Giá trong trang chi tiết sản phẩm */
+.custom-product-page-summary .amount {
+	color: var(--primary-color);
+	font-size: 1.7em;
+}
+
+.custom-product-page-summary del .amount {
+	font-size: 1.5em;
+}
+
+.custom-product-page-summary ins .amount {
+	color: red;
+	font-size: 1.8em;
+}
+
+.variations label {
+	font-size: 1.2em;
+}
+
+/* Tabs thông tin sản phẩm */
+.product-tabs a {
+	font-size: 1.2em !important;
+}
+
+/* Màu chữ Biến thể */
+.wpcvs-term.hint--top {
+	color: black;
+}
+
+/* Màu chữ Tài khoản + Giỏ hàng */
+.header-nav.header-nav-main.nav-right .account-link, .header-cart-link  {
+	color: black !important;
+}
+
+/* ----------------------------------CUSTOM---------------------------------- */
+#topbar-contact-form {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(#ffffff, var(--primary-color)); 
+}
+
+#topbar-contact-form .wpcf7-submit {
+    background-color: #d26e4b;
+    margin: 0px;
+}
+
+#topbar-contact-form .top-bar-column {
+    max-width: 500px;
+    color: var(--primary-color);
+    text-align: center;
+}

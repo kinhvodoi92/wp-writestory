@@ -1,0 +1,10 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "title": "Write a Story",
+    "name": "writestory-plugin/answer-block",
+    "category": "widgets",
+    "description": "Writing a story for Visitor",
+    "script": "file:./block.js",
+    "style": "file:/block.css"
+}
