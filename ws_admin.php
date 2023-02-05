@@ -1,6 +1,6 @@
 <?php
 include 'ws_admin_blocks.php';
-include 'ws_admin_add_questions.php';
+ include 'ws_admin_add_questions.php';
 
 global $plugin_slug;
 $plugin_slug = 'writestory';

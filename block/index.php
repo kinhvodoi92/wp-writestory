@@ -144,7 +144,6 @@ function write_story_block_content($args)
                                     <b>Reverse Mirror</b><br>
                                     <input type="radio" name="mirror" value="no" checked="checked"> Normal <br>
                                     <input type="radio" name="mirror" value="yes"> Mirrored <br>
-                                    Download <a href="https://fonts2u.com/strait-kcab.font" target="_NEW">Kcab -font </a>
                                 </td>
                             </tr>
                             <tr>

@@ -64,14 +64,32 @@ class WSAdminDB
     {
         global $wpdb;
         $table_name = $wpdb->prefix . $this->table_suffix;
-        $wpdb->insert($table_name, array(
+        $result = $wpdb->insert($table_name, array(
             'title' => sanitize_text_field($title),
-            'description' => sanitize_text_field($description),
+            'description' => sanitize_textarea_field($description),
             'status' => 1,
             'questions' => json_encode($questions),
             'date_created' => current_time('mysql'),
             'date_modified' => current_time('mysql'),
         ));
+        return is_int($result) && $result > 0;
+    }
+
+    public function updateQuestion($id, $title, $description, $questions)
+    {
+        global $wpdb;
+        $table_name = $wpdb->prefix . $this->table_suffix;
+        $result = $wpdb->update($table_name, array(
+            'title' => sanitize_text_field($title),
+            'description' => sanitize_textarea_field($description),
+            'status' => 1,
+            'questions' => json_encode($questions),
+            'date_created' => current_time('mysql'),
+            'date_modified' => current_time('mysql'),
+        ), array(
+            'id' => $id,
+        ));
+        return is_int($result) && $result > 0;
     }
 
     public function fetchAllQuestions()
@@ -79,7 +97,7 @@ class WSAdminDB
         global $wpdb;
         $table_name = $wpdb->prefix . $this->table_suffix;
         return $wpdb->get_results(
-            "SELECT * from {$table_name}",
+            "SELECT * from {$table_name} ORDER BY `id` DESC",
             ARRAY_A
         );
     }
@@ -88,7 +106,15 @@ class WSAdminDB
     {
         global $wpdb;
         $table_name = $wpdb->prefix . $this->table_suffix;
-        $list = $wpdb->get_row("SELECT * FROM {$table_name} WHERE `id` = {$id}");
+        $item = $wpdb->get_row("SELECT * FROM {$table_name} WHERE `id` = {$id}");
+        return $item;
+    }
+
+    public function deleteQuestion($id)
+    {
+        global $wpdb;
+        $table_name = $wpdb->prefix . $this->table_suffix;
+        $list = $wpdb->delete($table_name, array('id' => $id));
         return $list;
     }
 }

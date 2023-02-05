@@ -8,7 +8,7 @@ function addQuestion(value) {
     var question = document.createElement("div");
     question.innerHTML = `<div id="writestory-admin-question-${i}" class="question-item">
         <strong style="margin-bottom: 4px;"> Question ${questionCount}:</strong >
-            <div><textarea class="vsb_admin_input" name="questions[]" placeholder="Enter question ${questionCount}" >${value ?? ""}</textarea>
+            <div><input class="vsb_admin_input" name="questions[]" placeholder="Enter question ${questionCount}" required value="${value ?? ""}" />
             <button type="button" value="Remove" onclick="remove_question(${i})">Remove</button>
             </div>
         </div>`;
