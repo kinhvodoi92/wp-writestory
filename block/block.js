@@ -1,4 +1,6 @@
 (function (blocks, element, blockEditor) {
+    var el = element.createElement;
+    var TextControl = wp.components.TextControl;
     var useBlockProps = blockEditor.useBlockProps;
 
     var blockStyle = {
@@ -7,13 +9,27 @@
         border: 'red 10px',
     };
 
+    // var message = select( 'core/blocks' ).getBlockType( 'survey-maker/survey' ).attributes.message;
+
     blocks.registerBlockType('writestory-plugin/answer-block', {
         title: "Write a story",
-        edit: ({questions}) => {
-            return element.createElement("p", useBlockProps.save( { style: blockStyle } ), questions);
+        edit: ({attributes, setAttributes}) => {
+            return el("div",
+                useBlockProps.save({ style: blockStyle }),
+                el(
+                    TextControl,
+                    {
+                        label: "Enter questions block ID",
+                        type: 'number',
+                        value: attributes.block_id,
+                        onChange: (val) => setAttributes({ block_id: val }),
+                    }
+                ));
         },
-        // save: ({questions}) => {
-        //     return element.createElement("p", useBlockProps.save( { style: blockStyle } ), ...questions);
+        // save: ({ attributes }) => {
+        //     return el("div",
+        //         useBlockProps.save({ style: blockStyle }),
+        //         attributes.message);
         // },
     })
 }(window.wp.blocks, window.wp.element, window.wp.blockEditor));

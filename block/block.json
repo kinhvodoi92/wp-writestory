@@ -6,5 +6,11 @@
     "category": "widgets",
     "description": "Writing a story for Visitor",
     "script": "file:./block.js",
-    "style": "file:/block.css"
+    "style": "file:/block.css",
+    "attributes": {
+        "block_id": {
+            "type": "integer",
+            "default": "3532352352"
+        }
+    }
 }

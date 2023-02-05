@@ -1,13 +1,24 @@
 <?php
+include 'ws_admin_blocks.php';
+include 'ws_admin_add_questions.php';
 
-$questions = $_POST["questions"];
+global $plugin_slug;
+$plugin_slug = 'writestory';
 
-if (isset($questions)) {
-    update_option("ws_questions", $questions);
+register_activation_hook(__FILE__, 'writestory_install_db');
+add_action('plugins_loaded', 'writestory_install_db');
+add_action('admin_init', 'vsb_register_admin_style');
+add_action('admin_init', 'register_script');
+add_filter('plugin_action_links_writestory-plugin/index.php', 'settings_link');
+add_action('admin_menu', 'add_menu');
+
+function writestory_install_db()
+{
+    // require_once plugin_dir_path(__FILE__) . 'ws_admin_db.php';
+    WSAdminDB::instance()->writestory_update_db_check();
 }
 
 // Register css
-add_action('admin_init', 'vsb_register_admin_style');
 function vsb_register_admin_style()
 {
     wp_register_style('vsb_admin_style', plugin_dir_url(__FILE__) . 'css/admin.css');
@@ -15,19 +26,18 @@ function vsb_register_admin_style()
 }
 
 // Register Javascript
-add_action('admin_init', 'register_script');
 function register_script()
 {
     wp_register_script('admin_scripts', plugin_dir_url(__FILE__) . 'js/admin.js');
     wp_enqueue_script('admin_scripts');
 }
 
-add_filter('plugin_action_links_writestory-plugin/index.php', 'settings_link');
 function settings_link($links)
 {
+    global $plugin_slug;
     $url = esc_url(add_query_arg(
         'page',
-        'writestory',
+        $plugin_slug,
         get_admin_url() . 'admin.php'
     ));
     // Create the link.
@@ -41,69 +51,40 @@ function settings_link($links)
 }
 
 // Add Admin Menu
-add_action('admin_menu', 'add_menu');
 function add_menu()
 {
+    global $plugin_slug;
     add_menu_page(
         'Write a Story Configuration',
         'Write a Story',
         'manage_options',
-        'writestory',
-        'init_page',
-        plugin_dir_url(__FILE__) . 'assets/menu_icon.jpeg'
+        $plugin_slug . '_main_menu',
+        '',
+        plugin_dir_url(__FILE__) . 'assets/menu_icon.png'
     );
+
+    add_submenu_pages();
 }
 
-function init_page()
+function add_submenu_pages()
 {
-    echo file_get_contents(plugin_dir_url(__FILE__) . 'html/admin.html');
-?>
-    <form method="POST" action="">
-        <?php
-        settings_fields('ws_question_group');
-        do_settings_sections('ws_setting_page');
-        submit_button("Save");
-        ?>
-    </form>
-<?php
-}
+    global $plugin_slug;
 
-add_action('admin_init', 'ws_settings');
-function ws_settings()
-{
-
-    add_settings_section(
-        'ws_question_section',
-        'Questions',
-        'content',
-        'ws_setting_page'
+    add_submenu_page(
+        $plugin_slug . '_main_menu',
+        'Questions Blocks',
+        'Blocks',
+        'manage_options',
+        $plugin_slug . '_main_menu',
+        'init_list_blocks_page',
     );
-}
 
-function content()
-{
-    echo '<p>Add list of questions below</p>';
-?>
-    <div id="question-list">
-        <script>
-            <?php
-            $questions = get_option("ws_questions");
-            $size = count($questions);
-            if ($size > 0) {
-                for ($i = 0; $i < $size; $i++) {
-                    $question = $questions[$i];
-            ?>
-                    addQuestion('<?= $question ?>');
-                <?php
-                }
-            } else {
-                ?>
-                addQuestion();
-            <?php
-            }
-            ?>
-        </script>
-    </div>
-    <a onclick="addQuestion()">+ Add Question</a>
-<?php
+    add_submenu_page(
+        $plugin_slug . '_main_menu',
+        'Add New Questions Block',
+        'Add New',
+        'manage_options',
+        $plugin_slug . '_add_new',
+        'init_add_page',
+    );
 }

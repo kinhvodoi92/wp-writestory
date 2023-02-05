@@ -8,3 +8,13 @@
     flex-direction: column;
     margin: 12px 0 12px 0px;
 }
+
+.vertical-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+form p {
+    margin-top: 24px;
+    margin-bottom: 0px;
+}
