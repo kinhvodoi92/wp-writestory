@@ -109,7 +109,9 @@ function write_story_block_content($args)
             <textarea name="answers[]" ></textarea>
             </div>';
     }
-    return '<form method="POST" action="">
+    return '
+    <iframe name="hidden-frame" style="display:none;"></iframe>
+    <form method="POST" action="" target="hidden-frame">
     <div class="writestory-block">
     <a class="writestory-block-title">Write a Story</a>'
         . $html .
